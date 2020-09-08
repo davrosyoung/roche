@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<project name="rocheLimit" basedir="." default="jar">
+    <property name="src" value="src"/>
+    <property name="output" value="out"/>
+
+    <path  id="classpath">
+        <pathelement  path="out"/>
+        <pathelement  path="src"/>
+        <pathelement  location="lib/junit-4.6.jar"/>
+    </path>
+
+    <target name="compile" depends="create">
+        <javac destdir="${output}">
+            <classpath  refid="classpath"/>
+            <src path="${src}"/>
+        </javac>
+    </target>
+
+    <target name="jar" depends="compile">
+        <jar destfile="roche.jar">
+            <manifest>
+                  <!--  What class to invoke? -->
+                  <attribute name="Main-Class" value="au.com.polly.roche.ui.Top"/>
+            </manifest>
+
+            <fileset dir="${output}"/>
+        </jar>
+    </target>
+
+    <target name="clean">
+        <delete dir="${output}"/>
+        <delete file="roche.jar"/>
+    </target>
+
+    <target name="create" depends="clean">
+        <mkdir dir="${output}"/>
+    </target>
+
+</project>
